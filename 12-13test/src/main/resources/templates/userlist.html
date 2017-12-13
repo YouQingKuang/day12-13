@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+<script type="text/javascript"  th:src="@{webjars/jquery/1.11.1/jquery.min.js}"></script>
+
+</head>
+<body>
+<center>
+	
+	<form action="saveUser" method="post">
+		用户id:<input type="text" name="id" /><br/>
+		用户姓名:<input type="text" name="name" /><br/>
+		用户年龄:<input type="text" name="age" /><br/>
+		用户得分:<input type="text" name="score" /><br/>
+		<input type="submit" value="提交" />
+	</form>
+	<br/>
+	<hr/>
+	<br/>
+	<button id="getUser">展示</button>
+	<table id="showData">
+		<tr>
+			<td>   用户id</td>
+			<td>   用户姓名</td>
+			<td>   用户年龄</td>
+			<td>   用户得分</td>
+		</tr>
+	</table>
+	
+</center>
+</body>
+
+<script type="text/javascript">
+/*<![CDATA[*/ 
+	
+$("#getUser").click( function () {
+	alert( "Data");
+	$.ajax({
+		   type: "POST",
+		   url: "/showUser",
+		   dataType:'json',
+		   success: function(msg){
+			  alert(msg.list.length);
+			  $.each(msg.list,function(i, user){
+                  $("#showData").append("<tr><td>"+user.id+"</td><td>"+user.name+"</td><td>"+user.age+"</td><td>"+user.score+"</td></tr>");
+              });
+		   }
+		});
+});
+
+/*]]>*/
+</script>
+</html>
